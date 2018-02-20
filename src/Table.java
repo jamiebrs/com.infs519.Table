@@ -1,69 +1,162 @@
-public class Table {
+public class Table<T> {
 
-    private Node head;
+    private static int counter;
+    private Node first;
+    private Node last;
 
-    public Table(){    }
-
-    public void add(Object key, Object data) {
-
-        // Initialize Node only incase of 1st element
-        if (head == null) {
-            head = new Node(key, data);
-        }
-
-        Node temp = new Node(key, data);
-        Node current = head;
-
-        // check for NPE
-        if (current != null) {
-            // starting at the head node, crawl to the end of the list and then add element after last node
-            while (current.getNext() != null) {
-                current = current.getNext();
-            }
-            // the last node's "next" reference set to our new node
-            current.setNext(temp);
-        }
+    // Default constructor
+    public Table() {
 
     }
 
-    public Object getData(Object key)
+    // appends the specified element to the end of this list.
+    public boolean insert(T key, T data) {
+
+            if (!isEmpty()) {
+                if (lookUp(key).equals(null)) {
+                    Node prev = last;
+                    last = new Node(key, data);
+                    prev.next = last;
+                    incrementCounter();
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                last = new Node(key, data);
+                first = last;
+                incrementCounter();
+                return true;
+            }
+
+
+
+
+    }
+
+
+    public String lookUp(T key)
     // returns the element at the specified position in this list.
     {
+        if(first !=null){
+            Node currentNode = first;
+            while(currentNode != null){
+                if(currentNode.getKey().equals(key)){
 
-        Node current = null;
-        if (head != null) {
-            current = head.getNext();
-            for (int i = 0; i < index; i++) {
-                if (current.getNext() == null)
-                    return null;
-
-                current = current.getNext();
+                    return (String) currentNode.getData();
+                }
+                currentNode = currentNode.getNext();
             }
-            return current.getData();
+            return null;
         }
-        return current;
+        return null;
 
     }
 
-    // removes the element at the specified position in this list.
-    public boolean remove(Object key) {
-
-        Node current = head;
-        if (head != null) {
-            for (int i = 0; i < index; i++) {
-                if (crunchifyCurrent.getNext() == null)
-                    return false;
-
-                crunchifyCurrent = crunchifyCurrent.getNext();
+        public boolean remove(T key) {
+        if (isEmpty()) {
+            throw new IllegalStateException("Cannot remove() from and empty list.");
+        }
+        boolean result = false;
+        Node prev = first;
+        Node curr = first;
+        while (curr.next != null || curr == last) {
+            if (curr.getKey().equals(key)) {
+                // remove the last remaining element
+                if (getCounter() == 1) {
+                    first = null;
+                    last = null;
+                }
+                // remove first element
+                else if (curr.equals(first)) {
+                    first = first.next;
+                }
+                // remove last element
+                else if (curr.equals(last)) {
+                    last = prev;
+                    last.next = null;
+                }
+                // remove element
+                else {
+                    prev.next = curr.next;
+                }
+                decrementCounter();
+                result = true;
+                break;
             }
-            crunchifyCurrent.setNext(crunchifyCurrent.getNext().getNext());
+            prev = curr;
+            curr = prev.next;
+        }
+        return result;
+    }
 
-            // decrement the number of elements variable
-            decrementCounter();
-            return true;
-
+    public boolean update(T key, T data){
+        if(first !=null){
+            Node currentNode = first;
+            while(currentNode != null){
+                if(currentNode.getKey().equals(key)){
+                    currentNode.setData(data);
+                    return true;
+                }
+                currentNode = currentNode.getNext();
+            }
+            return false;
         }
         return false;
+    }
+
+    public String lookupName(T key){
+     String lookUp = "";
+        if(first != null){
+            Node currentNode = first;
+            while(currentNode != null){
+                if(currentNode.getKey().equals(key)){
+                    lookUp = "Name: " + currentNode.getKey() + " Address: " + currentNode.getData();
+                    return  lookUp;
+                }
+                currentNode = currentNode.getNext();
+            }
+        }
+        return lookUp;
+    }
+
+
+    public String printAll() {
+        String output = "";
+
+        if (first != null) {
+            Node currentNode = first;
+            while (currentNode != null) {
+                output += "Name:" + currentNode.getKey().toString() + " Address: " + currentNode.getData().toString() +"\n";
+                currentNode = currentNode.getNext();
+            }
+
+        }
+        return output;
+    }
+
+
+    public boolean markToStart(){
+        return false;
+    }
+
+    public String valueAtMark(){
+        return null;
+    }
+
+    private static int getCounter() {
+        return counter;
+    }
+
+    private static void incrementCounter() {
+        counter++;
+    }
+
+    private void decrementCounter() {
+        counter--;
+    }
+    private boolean isEmpty() {
+        return getCounter() == 0;
     }
 
 }

@@ -1,45 +1,68 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class HomeworkOne {
 
-    static BufferedReader reader =
-            new BufferedReader(new InputStreamReader(System.in));
+    static Scanner sc = new Scanner(System.in);
 
 
-    static Table addressBook = new Table(null);
+    static Table<String> addressBook = new Table<>();
 
     public static void main(String[] args){
-        printMenu();
+
 
         try {
-            String choice = reader.readLine();
 
-            switch(choice){
-                case "1":
-                    System.out.print("Name:");
-                    String name = reader.readLine();
-                    System.out.print("Address:");
-                    String address = reader.readLine();
-                    addName(name, address);
-                    break;
+            printMenu();
+            String choice = sc.nextLine();
+            menuChoices(choice);
+
+            while(choice !="6"){
+                printMenu();
+                choice = sc.nextLine();
+                menuChoices(choice);
             }
-
 
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
 
+    }
 
-
-//        System.out.println("Print: addressBook: \t\t" + addressBook);
-//        System.out.println(".size(): \t\t\t\t" + addressBook.size());
-//        System.out.println(".lookUp(3): \t\t\t\t" + addressBook.lookUp(3) + " (lookUp element at index:3 - list starts from 0)");
-//        System.out.println(".remove(2): \t\t\t\t" + addressBook.remove(2) + " (element removed)");
-//        System.out.println(".lookUp(3): \t\t\t\t" + addressBook.lookUp(3) + " (lookUp element at index:3 - list starts from 0)");
-//        System.out.println(".size(): \t\t\t\t" + addressBook.size());
-//        System.out.println("Print again: addressBook: \t" + addressBook);
-
+    private static void menuChoices(String choice) {
+        switch(choice){
+            case "1":
+                System.out.print("Name:");
+                String name = sc.nextLine();
+                System.out.print("Address:");
+                String address = sc.nextLine();
+                addName(name, address);
+                break;
+            case "2":
+                System.out.println("Lookup Name:");
+                System.out.print("Name:");
+                String tempName = sc.nextLine();
+                String lookupName = addressBook.lookupName(tempName);
+                System.out.println(lookupName);
+                break;
+            case "3":
+                System.out.println("Update Address:");
+                System.out.print("Name:");
+                String updateKey = sc.nextLine();
+                System.out.print("Address:");
+                String updateData = sc.nextLine();
+                addressBook.update(updateKey, updateData);
+                break;
+            case "4":
+                System.out.print("Remove Item (use key): ");
+                String tempKey = sc.nextLine();
+                addressBook.remove(tempKey);
+                break;
+            case "5":
+                System.out.println(addressBook.printAll());
+                break;
+            case "6":
+                 System.exit(0);
+        }
     }
 
     private static void printMenu(){
@@ -53,10 +76,7 @@ public class HomeworkOne {
     }
 
     private static void addName(String name, String address){
-//        addressBook.insert(name, address);
-//        addressBook.insert("2", "Joe");
-//        addressBook.insert("3", "Jeri");
-//        addressBook.insert("4", "Scott");
+        addressBook.insert(name, address);
 
     }
 }
