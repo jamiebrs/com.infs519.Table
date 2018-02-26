@@ -16,8 +16,8 @@ public class HomeworkOne {
     private static final Scanner sc = new Scanner(System.in);
     private static final Table<String> addressBook = new Table<>();
     private static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
 
 
     /*
