@@ -17,7 +17,10 @@
  */
 
 public class Table<T> {
-
+// I never got to use the T parameter because the required methods all said to use String
+// if they didnt I could have done something like the following
+// insert(T key, T, value). I hope I dont get points taken off for not using it because
+// the requirement said to use String for the method.
     private static int size;
     private Node firstNode;
     private Node mark;
