@@ -66,7 +66,7 @@ public class Table<T> {
 
     /*
       go to the start of the list using the markToStart Method and traverse it
-      if the key is found return the key, if it is not found return null
+      using the advaceMark() method if the key is found return the key, if it is not found return null
      */
     public String lookUp(String key)
     {
