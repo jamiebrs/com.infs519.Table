@@ -9,9 +9,9 @@
  need to and care return false to the methods that use it, it makes the
  code run faster.
 
- I also have a firstNode that I will set up as a marker for the first node in the list
- that my markToStart method uses. It basically sets the mark to the first node in the list
- which the purpose of the first node, my previousNode variable is for setting the last node
+ I also have a head that I will set up as a marker for the first node in the list
+ that my markToStart method uses. It basically sets the mark to the head node in the list
+ which the purpose of the head node, my previousNode variable is for setting the last node
  in the list so that we can use it when we delete from the list in order to replace any
  node that might be in the middle of the list when we delete it with the node that comes after it
  */
@@ -23,7 +23,7 @@ public class Table<T> {
 // of the requirement
 
     private static int size;
-    private Node firstNode;
+    private Node head;
     private Node mark;
     private Node previousNode;
 
@@ -35,19 +35,19 @@ public class Table<T> {
 
     /*Method name should be self explanatory
      take in the key and value run the lookup method to make sure it doesnt already
-     exist and if it doesnt add it, if it is not the first node set the next node
+     exist and if it doesnt add it, if it is not the head node set the next node
      to the previous node which is what makes this a linked list and
-     increment the size variable if it is the first node in the list set the
-     previous node, first node, and mark all to the new node that is created and
+     increment the size variable if it is the head node in the list set the
+     previous node, head node, and mark all to the new node that is created and
      increment the size
     */
     public boolean insert(String key, String value)
     {
             if (!isEmpty()) {
                 if (lookUp(key) == null) {
-                    Node prev = previousNode;
+                    Node temp = previousNode;
                     previousNode = new Node(key, value);
-                    prev.setNext(previousNode);
+                    temp.setNext(previousNode);
                     incrementSize();
                     return true;
                 } else {
@@ -56,7 +56,7 @@ public class Table<T> {
             } else {
                 previousNode = new Node(key, value);
                 mark = previousNode;
-                firstNode = previousNode;
+                head = previousNode;
                 incrementSize();
                 return true;
             }
@@ -98,7 +98,7 @@ public class Table<T> {
         } else {
             boolean result = false;
             markToStart();
-            Node prev = mark;
+            Node temp = mark;
             Node curr = mark;
             while (curr.getNext() != null || curr == previousNode) {
                 if (curr.getKey().equals(key)) {
@@ -113,19 +113,19 @@ public class Table<T> {
                     }
                     // delete previousNode element
                     else if (curr.equals(previousNode)) {
-                        previousNode = prev;
+                        previousNode = temp;
                         previousNode.setNext(null);
                     }
                     // delete element
                     else {
-                        prev.setNext(curr.getNext());
+                        temp.setNext(curr.getNext());
                     }
                     decrementSize();
                     result = true;
                     break;
                 }
-                prev = curr;
-                curr = prev.getNext();
+                temp = curr;
+                curr = temp.getNext();
             }
             return result;
         }
@@ -156,10 +156,10 @@ public class Table<T> {
     }
 
 
-    //method used to move the mark to the start of the list, we se up the firstNode varible
+    //method used to move the mark to the start of the list, we se up the head varible
     // as a bookmark to do this
     public boolean markToStart(){
-        mark = firstNode;
+        mark = head;
         return true;
     }
 

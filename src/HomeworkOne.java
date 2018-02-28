@@ -27,13 +27,13 @@ public class HomeworkOne {
     public static void main(String[] args){
         try {
             printMenu();
-            String choice = sc.nextLine();
+            String choice = sc.nextLine().trim().trim();
             menuChoices(choice);
 
         } catch (Exception e){
             System.out.println(ANSI_RED + e.getMessage() + ANSI_RESET);
             printMenu();
-            String choice = sc.nextLine();
+            String choice = sc.nextLine().trim().trim();
             menuChoices(choice);
         }
 
@@ -61,9 +61,9 @@ public class HomeworkOne {
         switch(choice){
             case "1":
                 System.out.print("Name:");
-                String name = sc.nextLine();
+                String name = sc.nextLine().trim().trim();
                 System.out.print("Address:");
-                String address = sc.nextLine();
+                String address = sc.nextLine().trim().trim();
                 boolean addName = addValue(name, address);
                 if (!addName){
                     System.out.println("");
@@ -73,7 +73,7 @@ public class HomeworkOne {
                 break;
             case "2":
                 System.out.println("Lookup Name:");
-                String tempName = sc.nextLine();
+                String tempName = sc.nextLine().trim().trim();
                 String lookupName = addressBook.lookUp(tempName);
                 if(lookupName != null) {
                     System.out.println("");
@@ -88,9 +88,9 @@ public class HomeworkOne {
             case "3":
                 System.out.println("Update Address:");
                 System.out.print("Name:");
-                String updateKey = sc.nextLine();
+                String updateKey = sc.nextLine().trim();
                 System.out.print("Address:");
-                String updateValue = sc.nextLine();
+                String updateValue = sc.nextLine().trim();
                 boolean updateName = updateValue(updateKey, updateValue);
                 if(!updateName){
                     System.out.println("");
@@ -100,7 +100,7 @@ public class HomeworkOne {
                 break;
             case "4":
                 System.out.print("Remove Item (use key): ");
-                String tempKey = sc.nextLine();
+                String tempKey = sc.nextLine().trim();
                 boolean deleteName =  deleteValue(tempKey);
 
                 if(!deleteName){
@@ -126,7 +126,7 @@ public class HomeworkOne {
         }
 
         printMenu();
-        choice = sc.nextLine();
+        choice = sc.nextLine().trim();
         menuChoices(choice);
     }
 
